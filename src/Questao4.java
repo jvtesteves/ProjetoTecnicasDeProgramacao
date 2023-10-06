@@ -10,7 +10,7 @@ public class Questao4 {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivoGolsCSV))) {
             String linha;
-            reader.readLine(); // Ignora o cabeçalho
+            reader.readLine(); // Ignora o cabeçalho do nosso arquivo csv
 
             Map<String, Integer> contagemGolsPenaltisPorJogador = new HashMap<>();
 
@@ -19,16 +19,15 @@ public class Questao4 {
                 String jogador = partes[3].replaceAll("\"", "").trim(); // Nome do jogador
                 String tipoGol = partes[5].replaceAll("\"", "").trim(); // Tipo de gol
 
-                // Verifica se é um gol de pênalti
+                // Verificação para saber se o gol é de Penalty
                 if (tipoGol.equalsIgnoreCase("Penalty")) {
-                    // Verifica se o nome do jogador está presente e atualiza a contagem
                     if (!jogador.isEmpty()) {
                         contagemGolsPenaltisPorJogador.put(jogador, contagemGolsPenaltisPorJogador.getOrDefault(jogador, 0) + 1);
                     }
                 }
             }
 
-            // Encontrando o jogador que fez mais gols de pênaltis
+            // Encontra o jogador que mais fez gols de penalti
             Map.Entry<String, Integer> jogadorMaisGolsPenaltis = contagemGolsPenaltisPorJogador.entrySet().stream()
                     .max(Map.Entry.comparingByValue())
                     .orElse(null);

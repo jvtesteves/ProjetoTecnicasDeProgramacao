@@ -10,13 +10,13 @@ public class Questao2 {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivoCSV))) {
             String linha;
-            reader.readLine(); // Ignora o cabeçalho
+            reader.readLine(); // Ignora o cabeçalho do nosso arquivo csv
 
             Map<String, Integer> contagemJogosPorEstado = new HashMap<>();
 
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(",");
-                String estadoMandante = partes[14].replaceAll("\"", "").trim(); // Estado do mandante
+                String estadoMandante = partes[14].replaceAll("\"", "").trim(); // Estado do time mandante
 
                 // Verifica se o estado do mandante está presente e atualiza a contagem
                 if (!estadoMandante.isEmpty()) {
@@ -24,7 +24,7 @@ public class Questao2 {
                 }
             }
 
-            // Encontrando o estado com menos jogos
+            // Encontra o estado com menos jogos
             Map.Entry<String, Integer> estadoMenosJogos = contagemJogosPorEstado.entrySet().stream()
                     .min(Map.Entry.comparingByValue())
                     .orElse(null);

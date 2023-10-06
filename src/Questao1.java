@@ -13,32 +13,32 @@ public class Questao1 {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivoCSV))) {
             String linha;
-            reader.readLine(); // Ignora o cabeçalho
+            reader.readLine(); // Ignora o cabeçalho do nosso arquivo csv
 
             Map<String, Integer> contagemVitoriasPorTime = new HashMap<>();
 
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(",");
-                String dataString = partes[2].replaceAll("\"", "").trim(); // Remove as aspas
+                String dataString = partes[2].replaceAll("\"", "").trim(); // Remove as aspas das colunas
                 LocalDate data = LocalDate.parse(dataString, dateFormatter);
 
-                // Verifica se a data está no ano de 2008 e se há um vencedor
+                // Faz a verifica se a data está no ano de 2008 e se há um vencedor
                 if (data.getYear() == 2008) {
                     String vencedor = partes[10].replaceAll("\"", "").trim();
 
-                    // Verifica se o vencedor está preenchido e não é "-"
+                    // Ignora o "-"
                     if (!vencedor.equals("-")) {
                         contagemVitoriasPorTime.put(vencedor, contagemVitoriasPorTime.getOrDefault(vencedor, 0) + 1);
                     }
                 }
             }
 
-            // Encontrando a maior quantidade de vitórias
+            // Encontra a quantidade de vitórias maximas
             int maxVitorias = contagemVitoriasPorTime.values().stream()
                     .max(Integer::compareTo)
                     .orElse(0);
 
-            // Encontrando times com a maior quantidade de vitórias em 2008
+            // Encontra os times
             System.out.println("Times com mais vitórias em 2008:");
             for (Map.Entry<String, Integer> entry : contagemVitoriasPorTime.entrySet()) {
                 if (entry.getValue() == maxVitorias) {

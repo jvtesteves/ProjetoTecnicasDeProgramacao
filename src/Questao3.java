@@ -10,7 +10,7 @@ public class Questao3 {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivoGolsCSV))) {
             String linha;
-            reader.readLine(); // Ignora o cabeçalho
+            reader.readLine(); // Ignora o cabeçalho do nosso arquivo csv
 
             Map<String, Integer> contagemGolsPorJogador = new HashMap<>();
 
