@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Questao4 {
     public static void main(String[] args) {
-        String arquivoGolsCSV = "C:/Users/joaov/Documents/Santander/TP/Aula/campeonato-brasileiro-gols.csv";
+        String arquivoGolsCSV = "src/csv/campeonato-brasileiro-gols.csv";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivoGolsCSV))) {
             String linha;
-            reader.readLine(); // Ignora o cabeçalho do nosso arquivo csv
+            reader.readLine();
 
             Map<String, Integer> contagemGolsPenaltisPorJogador = new HashMap<>();
 
@@ -19,7 +19,6 @@ public class Questao4 {
                 String jogador = partes[3].replaceAll("\"", "").trim(); // Nome do jogador
                 String tipoGol = partes[5].replaceAll("\"", "").trim(); // Tipo de gol
 
-                // Verificação para saber se o gol é de Penalty
                 if (tipoGol.equalsIgnoreCase("Penalty")) {
                     if (!jogador.isEmpty()) {
                         contagemGolsPenaltisPorJogador.put(jogador, contagemGolsPenaltisPorJogador.getOrDefault(jogador, 0) + 1);
@@ -27,7 +26,6 @@ public class Questao4 {
                 }
             }
 
-            // Encontra o jogador que mais fez gols de penalti
             Map.Entry<String, Integer> jogadorMaisGolsPenaltis = contagemGolsPenaltisPorJogador.entrySet().stream()
                     .max(Map.Entry.comparingByValue())
                     .orElse(null);

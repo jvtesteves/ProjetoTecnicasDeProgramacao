@@ -8,21 +8,20 @@ import java.util.Map;
 
 public class Questao1 {
     public static void main(String[] args) {
-        String arquivoCSV = "C:/Users/joaov/Documents/Santander/TP/Aula/campeonato-brasileiro-full.csv";
+        String arquivoCSV = "src/csv/campeonato-brasileiro-full.csv";
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivoCSV))) {
             String linha;
-            reader.readLine(); // Ignora o cabeçalho do nosso arquivo csv
+            reader.readLine();
 
             Map<String, Integer> contagemVitoriasPorTime = new HashMap<>();
 
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(",");
-                String dataString = partes[2].replaceAll("\"", "").trim(); // Remove as aspas das colunas
+                String dataString = partes[2].replaceAll("\"", "").trim();
                 LocalDate data = LocalDate.parse(dataString, dateFormatter);
 
-                // Faz a verifica se a data está no ano de 2008 e se há um vencedor
                 if (data.getYear() == 2008) {
                     String vencedor = partes[10].replaceAll("\"", "").trim();
 
@@ -33,7 +32,6 @@ public class Questao1 {
                 }
             }
 
-            // Encontra a quantidade de vitórias maximas
             int maxVitorias = contagemVitoriasPorTime.values().stream()
                     .max(Integer::compareTo)
                     .orElse(0);

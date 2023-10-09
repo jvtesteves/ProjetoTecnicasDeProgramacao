@@ -6,25 +6,23 @@ import java.util.Map;
 
 public class Questao2 {
     public static void main(String[] args) {
-        String arquivoCSV = "C:/Users/joaov/Documents/Santander/TP/Aula/campeonato-brasileiro-full.csv";
+        String arquivoCSV = "src/csv/campeonato-brasileiro-full.csv";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivoCSV))) {
             String linha;
-            reader.readLine(); // Ignora o cabeçalho do nosso arquivo csv
+            reader.readLine();
 
             Map<String, Integer> contagemJogosPorEstado = new HashMap<>();
 
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(",");
-                String estadoMandante = partes[14].replaceAll("\"", "").trim(); // Estado do time mandante
+                String estadoMandante = partes[14].replaceAll("\"", "").trim();
 
-                // Verifica se o estado do mandante está presente e atualiza a contagem
                 if (!estadoMandante.isEmpty()) {
                     contagemJogosPorEstado.put(estadoMandante, contagemJogosPorEstado.getOrDefault(estadoMandante, 0) + 1);
                 }
             }
 
-            // Encontra o estado com menos jogos
             Map.Entry<String, Integer> estadoMenosJogos = contagemJogosPorEstado.entrySet().stream()
                     .min(Map.Entry.comparingByValue())
                     .orElse(null);
